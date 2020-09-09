@@ -10,7 +10,8 @@ RUN apt-get -y install wget curl jq git
 RUN set -ex \
     && export FRP_VERSION=$(curl -s https://api.github.com/repos/fatedier/frp/releases |jq -r .[].tag_name | head -n 1 | sed 's/v//') \
     && export FRP_DOWN=$(curl -s https://api.github.com/repos/fatedier/frp/releases |jq -r .[].assets[].browser_download_url| grep -i 'linux_amd64'| head -n 1) \
-    && wget --no-check-certificate $FRP_DOWN | tar zxvf frp_${FRP_VERSION}_linux_amd64.tar.gz -C /tmp \
+    && wget --no-check-certificate $FRP_DOWN \
+    && tar zxvf frp_${FRP_VERSION}_linux_amd64.tar.gz -C /tmp \
     && mv /tmp/frp_${FRP_VERSION}_linux_amd64 /tmp/frp
 	 
 
