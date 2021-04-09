@@ -33,6 +33,8 @@ services:
     volumes:
       # 配置目录与文件
       - ./conf/frp/frps.ini:/etc/frp/frps.ini:rw,cached
+      # 日志目录
+      - ./logs/frp:/var/log/frps.log:delegated
       # 同步宿主机时区与时间
       - /usr/share/zoneinfo:/usr/share/zoneinfo:ro,cached
       - /etc/localtime:/etc/localtime:ro,cached
