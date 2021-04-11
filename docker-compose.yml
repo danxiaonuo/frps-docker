@@ -2,7 +2,7 @@ version: '3.9'
 services:
 
   # 服务名
-  frps-docker:
+  frps:
     # 模拟一个伪终端
     tty: true
     # 打开标准输入,可以接受外部输入
@@ -10,9 +10,9 @@ services:
     # 指定容器中运行应用的用户名
     user: root
     # 主机名
-    hostname: frps-docker
+    hostname: frps
     # 指定容器名称
-    container_name: frps-docker
+    container_name: frps
     # 指定为镜像名称或镜像ID
     image: danxiaonuo/frps-docker:latest
     # 覆盖容器启动后默认执行的命令
@@ -25,16 +25,16 @@ services:
     cap_add:
      - ALL
     # 配置容器内核参数
-    sysctls:
-     - net.ipv4.tcp_ecn=1
-     - net.ipv4.tcp_ecn_fallback=1
-     - net.ipv4.tcp_congestion_control=bbrplus
+    #sysctls:
+    # - net.ipv4.tcp_ecn=1
+    # - net.ipv4.tcp_ecn_fallback=1
+    # - net.ipv4.tcp_congestion_control=bbrplus
     # 数据卷所挂载路径设置
     volumes:
       # 配置目录与文件
       - ./conf/frp/frps.ini:/etc/frp/frps.ini:rw,cached
       # 日志目录
-      - ./logs/frp:/var/log/frps.log:delegated
+      - ./logs/frp:/tmp/frps.log:delegated
       # 同步宿主机时区与时间
       - /usr/share/zoneinfo:/usr/share/zoneinfo:ro,cached
       - /etc/localtime:/etc/localtime:ro,cached
