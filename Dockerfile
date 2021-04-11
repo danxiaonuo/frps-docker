@@ -6,7 +6,7 @@ RUN sed -i s#http://*.*ubuntu.com#http://mirrors.aliyun.com#g /etc/apt/sources.l
 RUN apt-get update
 # 安装相关依赖包
 RUN apt-get -y install wget curl jq git
-# 下载 HUGO
+# 下载 frp
 RUN set -ex \
     && export FRP_VERSION=$(curl -s https://api.github.com/repos/fatedier/frp/releases |jq -r .[].tag_name | head -n 1 | sed 's/v//') \
     && export FRP_DOWN=$(curl -s https://api.github.com/repos/fatedier/frp/releases |jq -r .[].assets[].browser_download_url| grep -i 'linux_amd64'| head -n 1) \
