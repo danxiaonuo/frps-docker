@@ -36,12 +36,12 @@ RUN apk add -U tzdata \
 RUN mkdir -p mkdir -p /etc/frp
 # 拷贝 FRP 二进制文件至安装路径
 COPY --from=builder /tmp/frp/frps /usr/bin/frps
-COPY --from=builder /tmp/frp/frps_full.ini /etc/frp/frps.ini
+COPY --from=builder /tmp/frp/frps.toml /etc/frp/frps.toml
 
 # 设置 FRPS 环境变量
 ENV PATH /usr/bin/frps:$PATH
 
 # 增加文件权限
-RUN chmod a+x /usr/bin/frps /etc/frp/frps.ini
+RUN chmod a+x /usr/bin/frps /etc/frp/frps.toml
 # 命令执行入口
-ENTRYPOINT /usr/bin/frps -c /etc/frp/frps.ini
+ENTRYPOINT /usr/bin/frps -c /etc/frp/frps.toml
